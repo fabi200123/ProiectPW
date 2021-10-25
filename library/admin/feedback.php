@@ -17,7 +17,7 @@
     <style type="text/css">
     	body
     	{
-    		background-image: url("images/66.jpg");
+    		background-image: url("images/4.png");
     	}
     	.wrapper
     	{
@@ -45,9 +45,9 @@
 </head>
 <body>
 	<div class="wrapper">
-		<h4>If you have any suggesions or questions please comment below.</h4>
+		<h4>Intrebari sau sugestii?</h4>
 		<form style="" action="" method="post">
-			<input class="form-control" type="text" name="comment" placeholder="Write something..."><br>	
+			<input class="form-control" type="text" name="comment" placeholder="Scrie ceva..."><br>	
 			<input class="btn btn-default" type="submit" name="submit" value="Comment" style="width: 100px; height: 35px;">		
 		</form>
 	

@@ -25,7 +25,7 @@
             <div class="box1">
                 <h1 style="text-align: center; color: #FEF4F2; font-size: 35px; font-family: Lucida Console;">
                 JOCURI MOCA ROMANIA</h1><br>
-                <h1 style="text-align: center; color: #FEF4F2; font-size: 25px;">Client Login Form</h1><br>
+                <h1 style="text-align: center; color: #FEF4F2; font-size: 25px;">Admin Login Form</h1><br>
                 <form name="login" action="" method="post">
                     <div class="login">
                     <input class=" form-control" type="text" name="username" placeholder="Username" required=""> <br>

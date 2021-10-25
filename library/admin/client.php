@@ -86,7 +86,7 @@
 
   <a href="profile.php">Profile</a>
   <a href="jocuri.php">Jocuri</a>
-  <a href="#">Game Request</a>
+  <a href="request.php">Game Request</a>
   <a href="#">Issue Information</a>
 </div>
 

@@ -100,8 +100,8 @@
 
  
   <div class="h"> <a href="jocuri.php">JOCURI</a></div>
-  <div class="h"> <a href="request.php">Game Request</a></div>	
-  <div class="h"> <a href="issue_info.php">Issue Information</a></div>
+  <div class="h"> <a href="request.php">Cerere Cumparare Joc</a></div>	
+  <div class="h"> <a href="issue_info.php">Informatii cumparari</a></div>
 
 </div>
 <div id="main">
@@ -141,9 +141,9 @@
 				//Table header
 				
 				echo "<th>"; echo "Game name";  echo "</th>";
-				echo "<th>"; echo "Approve Status";  echo "</th>";
-				echo "<th>"; echo "Issue Date";  echo "</th>";
-				echo "<th>"; echo "Return Date";  echo "</th>";
+				echo "<th>"; echo "Aprobarea cererii";  echo "</th>";
+				echo "<th>"; echo "Data achizitiei";  echo "</th>";
+				echo "<th>"; echo "Data livrarii";  echo "</th>";
 				
 			echo "</tr>";	
 

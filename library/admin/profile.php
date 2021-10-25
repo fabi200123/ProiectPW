@@ -13,13 +13,13 @@
       width: 400px;
       height: 450px;
       margin: 0 auto;
-      background-color: #FEFEC6 ;
+      background-color: #E2FE9C ;
       color: #422727;
       font-family: EB Garamond;
     }
   </style>
 </head>
-<body style="background-color: #422727;">
+<body style="background-color: #FED39C;">
   <div class="container">
     <form action="" method="post" >
       <button class="btn btn-default" style="float: right; width: 90px;" name="submit1">
@@ -28,7 +28,16 @@
     </form>
     <div class="wrapper">
       <?php
-        $q=mysqli_query($db, "SELECT * FROM admin where email='$_SESSION[login_user]' ;");
+          if(isset($_POST['submit1']))
+          {
+              ?>
+              <script type="text/javascript">
+                window.location="edit.php"
+              </script>
+              <?php
+          }
+
+        $q=mysqli_query($db, "SELECT * FROM admin where username='$_SESSION[login_user]' ;");
       ?>
       <h2 style="text-align: center; font-size: 35px; padding-top: 10px;">Profilul meu</h2>
       <?php

@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Game Request</title>
+	<title>Approve Request</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<style type="text/css">
@@ -18,7 +18,7 @@
 		.form-control
 		{
 			width: 300px;
-			height: 40px;
+			height: 45px;
 			background-color: black;
 			color: white;
 		}
@@ -92,6 +92,11 @@
 	opacity: .8;
 	color: white;
 }
+.Approve
+{
+  margin-left: 420px;
+}
+
 
 	</style>
 
@@ -139,83 +144,44 @@
 	  document.body.style.backgroundColor = "white";
 	}
 	</script>
-	<br>
+  <div class="container">
+    <br><h3 style="text-align: center;">Aprobare Cerere</h3><br><br>
+    
+    <form class="Approve" action="" method="post">
+        <input class="form-control" type="text" name="approve" placeholder="Da sau Nu" required=""><br>
 
-<div class="container">
-	<div class="srch">
-		<br>
-		<form method="post" action="" name="form1">
-			<input type="text" name="username" class="form-control" placeholder="Username" required=""><br>
-			<input type="text" name="nume" class="form-control" placeholder="nume" required=""><br>
-			<button class="btn btn-default" name="submit" type="submit">Submit</button><br>
-		</form>
-	</div>
+        <input type="text" name="issue" placeholder="Data achizitiei yyyy-mm-dd" required="" class="form-control"><br>
 
-	<h3 style="text-align: center;">Cereri de Vanzare</h3>
-
-	<?php
-	
-	if(isset($_SESSION['login_user']))
-	{
-		$sql= "SELECT client.username,jocuri.nume,approve,producator, issue, issue_game.return FROM client inner join issue_game ON client.username=issue_game.username inner join jocuri ON issue_game.nume=jocuri.nume WHERE issue_game.approve =''";
-		$res= mysqli_query($db,$sql);
-
-		if(mysqli_num_rows($res)==0)
-			{
-				echo "<h2><b>";
-				echo "There's no pending request.";
-				echo "</h2></b>";
-			}
-		else
-		{
-			echo "<table class='table table-bordered' >";
-			echo "<tr style='background-color: #6db6b9e6;'>";
-				//Table header
-				echo "<th>"; echo "Username";  echo "</th>";
-				echo "<th>"; echo "Game name";  echo "</th>";
-				echo "<th>"; echo "Approve Status";  echo "</th>";
-				echo "<th>"; echo "Data achizitiei";  echo "</th>";
-				echo "<th>"; echo "Data livrarii";  echo "</th>";
-				
-			echo "</tr>";	
-
-			while($row=mysqli_fetch_assoc($res))
-			{
-				echo "<tr>";
-				echo "<td>"; echo $row['username']; echo "</td>";
-				echo "<td>"; echo $row['nume']; echo "</td>";
-				echo "<td>"; echo $row['approve']; echo "</td>";
-				echo "<td>"; echo $row['issue']; echo "</td>";
-				echo "<td>"; echo $row['return']; echo "</td>";
-				
-				echo "</tr>";
-			}
-		echo "</table>";
-		}
-	}
-	else
-	{
-		?>
-		<br>
-			<h4 style="text-align: center;color: yellow;">Logheaza-te ca sa vezi request-urile!</h4>
-			
-		<?php
-	}
-
-	if(isset($_POST['submit']))
-	{
-		$_SESSION['nume']=$_POST['username'];
-		$_SESSION['nume']=$_POST['nume'];
-
-		?>
-			<script type="text/javascript">
-				window.location="approve.php"
-			</script>
-		<?php
-	}
-
-	?>
-	</div>
+        <input type="text" name="return" placeholder="Data livrarii yyyy-mm-dd" required="" class="form-control"><br>
+        <button class="btn btn-default" type="submit" name="submit">Approve</button>
+    </form>
+  
+  </div>
 </div>
+
+<?php
+  if(isset($_POST['submit']))
+  {
+    mysqli_query($db,"UPDATE  `issue_game` SET  `approve` =  '$_POST[approve]', `issue` =  '$_POST[issue]', `return` =  '$_POST[return]' WHERE username='$_SESSION[name]' and nume='$_SESSION[nume]';");
+
+    mysqli_query($db,"UPDATE jocuri SET quantity = quantity-1 where nume='$_SESSION[nume]' ;");
+
+    $res=mysqli_query($db,"SELECT quantity from jocuri where nume='$_SESSION[nume];");
+
+    while($row=mysqli_fetch_assoc($res))
+    {
+      if($row['quantity']==0)
+      {
+        mysqli_query($db,"UPDATE jocuri SET status='not-available' where nume='$_SESSION[nume]';");
+      }
+    }
+    ?>
+      <script type="text/javascript">
+        alert("Updated successfully.");
+        window.location="request.php"
+      </script>
+    <?php
+  }
+?>
 </body>
 </html>

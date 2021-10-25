@@ -90,9 +90,9 @@
                 ?>
             </div>
 
-  <a href="add.php">Adauga Joc</a>
-  <a href="#">Game Request</a>
-  <a href="#">Issue Information</a>
+	<div class="h"> <a href="add.php">Adauga Joc</a></div>
+  	<div class="h"> <a href="request.php">Vanzare de Jocuri</a></div>
+  	<div class="h"> <a href="issue_info.php">Informatii despre vanzare</a></div>
 </div>
 
 <div id="main">
@@ -151,8 +151,8 @@ function closeNav() {
 				//Table header
 			    echo "<th>"; echo "Nume";  echo "</th>";
 				echo "<th>"; echo "Pret";	echo "</th>";
-			    echo "<th>"; echo "Varsta";  echo "</th>";
 			    echo "<th>"; echo "Producator";  echo "</th>";
+			    echo "<th>"; echo "Varsta";  echo "</th>";
 			    echo "<th>"; echo "Platforma";  echo "</th>";
 						
 			    echo "</tr>";	
@@ -181,8 +181,8 @@ function closeNav() {
 				//Table header
 			    echo "<th>"; echo "Nume";  echo "</th>";
 				echo "<th>"; echo "Pret";	echo "</th>";
-			    echo "<th>"; echo "Varsta";  echo "</th>";
 			    echo "<th>"; echo "Producator";  echo "</th>";
+			    echo "<th>"; echo "Varsta";  echo "</th>";
 			    echo "<th>"; echo "Platforma";  echo "</th>";
 						
 			    echo "</tr>";
