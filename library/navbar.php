@@ -32,9 +32,6 @@
             if(isset($_SESSION['login_user']))
             {?>
                 <ul class="nav navbar-nav">
-                  <li><a href="client.php">
-                    CLIENT-INFORMATION
-                  </a></li>
                   <li><a href="profile.php">
                     PROFILE
                   </a></li>

@@ -53,7 +53,7 @@
                         <ul>
                             <li><a href="index.php">HOME</a></li>
                             <li><a href="jocuri.php">JOCURI</a></li>
-                            <li><a href="client_login.php">LOGIN</a></li>
+                            <li><a href="http://localhost/library/login.php">LOGIN</a></li>
                             <li><a href="feedback.php">FEEDBACK!</a></li>
                         </ul>
                     </nav>

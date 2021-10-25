@@ -24,9 +24,16 @@
             <br><br><br>
             <div class="box2">
                 <h1 style="text-align: center; color: #FEF4F2; font-size: 35px; font-family: Lucida Console;">
-                JOCURI MOCA ROMANIA</h1><br>
-                <h1 style="text-align: center; color: #FEF4F2; font-size: 25px;">User Registration Form</h1>
+                JOCURI MOCA ROMANIA</h1>
+                <h1 style="text-align: center; color: #FEF4F2; font-size: 25px;">User Registration Form</h1><br>
                 <form name="login" action="" method="post">
+
+                    <b><p style="padding-left: 70px;font-size: 20px; font-weight: 700; color: white;">Role:</p></b><br>
+                    <input style="margin-left: 50px; width=20px;" type="radio" name="user" id="admin" value="admin">
+                    <label for="admin" style=" color: white;" >Admin</label>
+                    <input style=" margin-left: 50px; width=20px;" type="radio" name="user" id="client" value="client">
+                    <label for="client" style="color: white;" >Client</label>
+
                     <div class="login">
                     <input class=" form-control" type="text" name="first" placeholder="Prenume" required=""> <br>
                     <input class=" form-control" type="text" name="last" placeholder="Nume de familie" required=""> <br>
@@ -45,6 +52,40 @@
 
       if(isset($_POST['submit']))
       {
+        if($_POST['user']=='admin')
+        {
+          $count=0;
+          $sql="SELECT username from `admin`";
+          $res=mysqli_query($db,$sql);
+  
+          while($row=mysqli_fetch_assoc($res))
+          {
+            if($row['username']==$_POST['username'])
+            {
+              $count=$count+1;
+            }
+          }
+          if($count==0)
+          {
+            mysqli_query($db,"INSERT INTO `admin` VALUES('', '$_POST[first]', '$_POST[last]', '$_POST[username]', '$_POST[password]', '$_POST[email]', '$_POST[contact]', 'pic.jpg');");
+          ?>
+            <script type="text/javascript">
+             alert("Registration successful");
+            </script>
+          <?php
+          }
+          else
+          {
+  
+            ?>
+              <script type="text/javascript">
+                alert("The username already exist.");
+              </script>
+            <?php
+  
+          }
+        }
+        else{
         $count=0;
         $sql="SELECT username from `client`";
         $res=mysqli_query($db,$sql);
@@ -77,6 +118,7 @@
         }
 
       }
+    }
 
     ?>
 
