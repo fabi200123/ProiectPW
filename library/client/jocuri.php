@@ -132,7 +132,7 @@ function closeNav() {
 		<form class="navbar-form" method="post" name="form1">
 			
 				<input class="form-control" type="text" name="nume" placeholder="Numele jocului" required="">
-				<button style="background-color: #6db6b9e6;" type="submit" name="submit1" class="btn btn-default">
+				<button style="background-color: #6db6b9e6;" type="submit" name="request" class="btn btn-default">
 				Request
 				</button>
 		</form>
@@ -205,19 +205,8 @@ function closeNav() {
 			}
 		echo "</table>";
 		}
-		if(isset($_POST['submit1'])){
-			if(isset($_SESSION['login_user']))
-			{
-				mysqli_query($db, "INSERT INTO issue_game Values('$_SESSION[login_user]', '$_POST[nume]', '', '', '') ;");
-			}
-			else
-			{
-				?>
-					<script type="text/javascript">
-						alert("Trebuie sa te loghezi mai intai!");
-					</script>
-				<?php
-			}
+		if(isset($_POST['request'])){
+				mysqli_query($db, "INSERT INTO issue_game VALUES('$_SESSION[login_user]', '$_POST[nume]', '', '', '') ;");
 		}
 
 	?>
