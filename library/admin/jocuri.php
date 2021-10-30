@@ -92,7 +92,6 @@
 
 	<div class="h"> <a href="add.php">Adauga Joc</a></div>
   	<div class="h"> <a href="request.php">Vanzare de Jocuri</a></div>
-  	<div class="h"> <a href="issue_info.php">Informatii despre vanzare</a></div>
 </div>
 
 <div id="main">
@@ -154,6 +153,7 @@ function closeNav() {
 			    echo "<th>"; echo "Producator";  echo "</th>";
 			    echo "<th>"; echo "Varsta";  echo "</th>";
 			    echo "<th>"; echo "Platforma";  echo "</th>";
+				echo "<th>"; echo "Actiuni"; echo "</th>";
 						
 			    echo "</tr>";	
 
@@ -165,7 +165,12 @@ function closeNav() {
                 echo "<td>"; echo $row['producator']; echo "</td>";
                 echo "<td>"; echo $row['varsta']; echo "</td>";
                 echo "<td>"; echo $row['platforma']; echo "</td>";
-                
+                ?>
+				<td class="float-right">
+				<button type="button" class="btn btn-primary">EDIT</button>
+				<button type="button" class="btn btn-danger">DELETE</button>
+				</td>
+                <?php
 				echo "</tr>";
 			}
 				echo "</table>";
@@ -184,6 +189,7 @@ function closeNav() {
 			    echo "<th>"; echo "Producator";  echo "</th>";
 			    echo "<th>"; echo "Varsta";  echo "</th>";
 			    echo "<th>"; echo "Platforma";  echo "</th>";
+				echo "<th>"; echo "Actiuni"; echo "</th>";
 						
 			    echo "</tr>";
 
@@ -195,7 +201,12 @@ function closeNav() {
                 echo "<td>"; echo $row['producator']; echo "</td>";
                 echo "<td>"; echo $row['varsta']; echo "</td>";
                 echo "<td>"; echo $row['platforma']; echo "</td>";
-                
+				?>
+				<td class="float-right">
+				<button type="button" class="btn btn-primary">EDIT</button>
+				<button type="button" class="btn btn-danger">DELETE</button>
+				</td>
+                <?php
 				echo "</tr>";
 			}
 			echo "</table>";

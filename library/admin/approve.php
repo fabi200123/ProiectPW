@@ -123,7 +123,6 @@
  
   <div class="h"> <a href="jocuri.php">Jocuri</a></div>
   <div class="h"> <a href="request.php">Vanzare de Jocuri</a></div>
-  <div class="h"> <a href="issue_info.php">Informatii despre vanzare</a></div>
 </div>
 
 <div id="main">
@@ -162,19 +161,7 @@
 <?php
   if(isset($_POST['submit']))
   {
-    mysqli_query($db,"UPDATE  `issue_game` SET  `approve` =  '$_POST[approve]', `issue` =  '$_POST[issue]', `return` =  '$_POST[return]' WHERE username='$_SESSION[name]' and nume='$_SESSION[nume]';");
-
-    mysqli_query($db,"UPDATE jocuri SET quantity = quantity-1 where nume='$_SESSION[nume]' ;");
-
-    $res=mysqli_query($db,"SELECT quantity from jocuri where nume='$_SESSION[nume];");
-
-    while($row=mysqli_fetch_assoc($res))
-    {
-      if($row['quantity']==0)
-      {
-        mysqli_query($db,"UPDATE jocuri SET status='not-available' where nume='$_SESSION[nume]';");
-      }
-    }
+    mysqli_query($db,"UPDATE  `issue_game` SET  `approve` =  '$_POST[approve]', `issue` =  '$_POST[issue]', `return` =  '$_POST[return]' WHERE username='$_SESSION[username]' and nume='$_SESSION[nume]';");
     ?>
       <script type="text/javascript">
         alert("Updated successfully.");

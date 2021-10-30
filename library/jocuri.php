@@ -152,20 +152,6 @@
 			}
 		echo "</table>";
 		}
-		if(isset($_POST['submit1'])){
-			if(isset($_SESSION['login_user']))
-			{
-				mysqli_query($db, "INSERT INTO issue_game Values('$_SESSION[login_user]', '$_POST[nume]', '', '', '') ;");
-			}
-			else
-			{
-				?>
-					<script type="text/javascript">
-						alert("Trebuie sa te loghezi mai intai!");
-					</script>
-				<?php
-			}
-		}
 
 	?>
 </div>

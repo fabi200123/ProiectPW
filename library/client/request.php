@@ -100,8 +100,7 @@
 
  
   <div class="h"> <a href="jocuri.php">JOCURI</a></div>
-  <div class="h"> <a href="request.php">Cerere Cumparare Joc</a></div>	
-  <div class="h"> <a href="issue_info.php">Informatii cumparari</a></div>
+  <div class="h"> <a href="request.php">Cerere Cumparare Joc</a></div>
 
 </div>
 <div id="main">
@@ -128,7 +127,7 @@
 	<?php
 	if(isset($_SESSION['login_user']))
 		{
-			$q=mysqli_query($db,"SELECT * from issue_game where username='$_SESSION[login_user]' and approve='' ;");
+			$q=mysqli_query($db,"SELECT * from issue_game where username='$_SESSION[login_user]'");
 
 			if(mysqli_num_rows($q)==0)
 			{

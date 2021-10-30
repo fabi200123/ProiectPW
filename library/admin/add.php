@@ -115,7 +115,6 @@
 
           <div class="h"> <a href="jocuri.php">Jocuri</a></div>
           <div class="h"> <a href="request.php">Vanzare de Jocuri</a></div>
-          <div class="h"> <a href="issue_info.php">Informatii despre vanzare</a></div>
 </div>
 
 <div id="main">

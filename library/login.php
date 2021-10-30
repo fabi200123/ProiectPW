@@ -32,8 +32,8 @@
                     <b><p style="padding-left: 70px;font-size: 20px; font-weight: 700; color: white;">Login as:</p></b><br>
                     <input style="margin-left: 50px; width=20px;" type="radio" name="user" id="admin" value="admin">
                     <label for="admin" style=" color: white;" >Admin</label>
-                    <input style=" margin-left: 50px; width=20px;" type="radio" name="user" id="client" value="client">
-                    <label for="client" style="color: white;" >Client</label>
+                    <input style=" margin-left: 50px; width=20px;" type="radio" checked="checked" name="user" id="client" value="client">
+                    <label for="client"  style="color: white;" >Client</label>
                     <div class="login">
 
                     <input class=" form-control" type="text" name="username" placeholder="Username" required=""> <br>
@@ -82,7 +82,7 @@
                 <?php
             }
             }
-            else{
+            if($_POST['user']=='client'){
             $count=0;
             $res = mysqli_query($db, "SELECT * FROM `client` WHERE username='$_POST[username]' AND password='$_POST[password]' ;");
             $row = mysqli_fetch_assoc($res);
@@ -110,7 +110,6 @@
                 <?php
             }
             }
-
         }
 
     ?>

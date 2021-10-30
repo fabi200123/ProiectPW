@@ -93,7 +93,6 @@
 	<div class="h"> <a href="profile.php">Profile</a></div>		
 	<div class="h"> <a href="jocuri.php">JOCURI</a></div>
   	<div class="h"> <a href="request.php">Cerere Cumparare Joc</a></div>	
-  	<div class="h"> <a href="issue_info.php">Informatii cumparari</a></div>
 </div>
 
 <div id="main">
@@ -128,7 +127,7 @@ function closeNav() {
 
 	<!----------request game---------------->
 	
-	<div class="srch">
+	<!-- <div class="srch">
 		<form class="navbar-form" method="post" name="form1">
 			
 				<input class="form-control" type="text" name="nume" placeholder="Numele jocului" required="">
@@ -136,7 +135,7 @@ function closeNav() {
 				Request
 				</button>
 		</form>
-	</div>
+	</div> -->
 
 	<h2>Lista de Jocuri</h2>
 	<?php
@@ -159,6 +158,7 @@ function closeNav() {
 			    echo "<th>"; echo "Producator";  echo "</th>";
 			    echo "<th>"; echo "Varsta";  echo "</th>";
 			    echo "<th>"; echo "Platforma";  echo "</th>";
+				echo "<th>"; echo "Actiuni"; echo "</th>";
 						
 			    echo "</tr>";	
 
@@ -170,7 +170,14 @@ function closeNav() {
                 echo "<td>"; echo $row['producator']; echo "</td>";
                 echo "<td>"; echo $row['varsta']; echo "</td>";
                 echo "<td>"; echo $row['platforma']; echo "</td>";
-                
+				?>
+				<td class="float-right">
+				<button class="btn btn-primary" type="submit" name="request">REQUEST</button>
+				</td>
+                <?php
+                if(isset($_POST['request'])){
+					mysqli_query($db, "INSERT INTO issue_game VALUES('$_SESSION[login_user]', '$row[nume]', '', '', '') ;");
+				}
 				echo "</tr>";
 			}
 		echo "</table>";
@@ -189,6 +196,7 @@ function closeNav() {
 			    echo "<th>"; echo "Producator";  echo "</th>";
 			    echo "<th>"; echo "Varsta";  echo "</th>";
 			    echo "<th>"; echo "Platforma";  echo "</th>";
+				echo "<th>"; echo "Actiuni"; echo "</th>";
 						
 			    echo "</tr>";
 
@@ -200,14 +208,20 @@ function closeNav() {
                 echo "<td>"; echo $row['producator']; echo "</td>";
                 echo "<td>"; echo $row['varsta']; echo "</td>";
                 echo "<td>"; echo $row['platforma']; echo "</td>";
+				?>
+				<td class="float-right">
+				<button class="btn btn-primary" type="submit" name="request">REQUEST</button>
+				</td>
+                <?php
                 
 				echo "</tr>";
 			}
 		echo "</table>";
 		}
+		
 		if(isset($_POST['request'])){
-				mysqli_query($db, "INSERT INTO issue_game VALUES('$_SESSION[login_user]', '$_POST[nume]', '', '', '') ;");
-		}
+					mysqli_query($db, "INSERT INTO issue_game VALUES('$_SESSION[login_user]', '$row[nume]', '', '', '') ;");
+				}
 
 	?>
 </div>
