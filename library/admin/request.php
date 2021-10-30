@@ -118,6 +118,7 @@
  
   <div class="h"> <a href="jocuri.php">Jocuri</a></div>
   <div class="h"> <a href="request.php">Vanzare de Jocuri</a></div>
+  <div class="h"> <a href="issue_info.php">Informatii despre vanzare</a></div>
 </div>
 
 <div id="main">
@@ -156,8 +157,7 @@
 	
 	if(isset($_SESSION['login_user']))
 	{
-		//$sql= "SELECT client.username,jocuri.nume,approve,producator, issue, issue_game.return FROM client inner join issue_game ON client.username=issue_game.username inner join jocuri ON issue_game.nume=jocuri.nume WHERE issue_game.approve =''";
-		$sql= "SELECT client.username,jocuri.nume, issue_game.approve, issue_game.issue, issue_game.return FROM client inner join issue_game ON client.username=issue_game.username inner join jocuri ON issue_game.nume=jocuri.nume ";
+		$sql= "SELECT client.username,jocuri.nume,approve,producator, issue, issue_game.return FROM client inner join issue_game ON client.username=issue_game.username inner join jocuri ON issue_game.nume=jocuri.nume WHERE issue_game.approve =''";
 		$res= mysqli_query($db,$sql);
 
 		if(mysqli_num_rows($res)==0)
@@ -176,7 +176,6 @@
 				echo "<th>"; echo "Approve Status";  echo "</th>";
 				echo "<th>"; echo "Data achizitiei";  echo "</th>";
 				echo "<th>"; echo "Data livrarii";  echo "</th>";
-				echo "<th>"; echo "Actiuni"; echo "</th>";
 				
 			echo "</tr>";	
 
@@ -188,11 +187,7 @@
 				echo "<td>"; echo $row['approve']; echo "</td>";
 				echo "<td>"; echo $row['issue']; echo "</td>";
 				echo "<td>"; echo $row['return']; echo "</td>";
-				?>
-				<td class="float-right">
-				<button type="button" class="btn btn-primary" name="accept">ACCEPTA</button>
-				</td>
-                <?php
+				
 				echo "</tr>";
 			}
 		echo "</table>";
@@ -209,7 +204,7 @@
 
 	if(isset($_POST['submit']))
 	{
-		$_SESSION['username']=$_POST['username'];
+		$_SESSION['nume']=$_POST['username'];
 		$_SESSION['nume']=$_POST['nume'];
 
 		?>
@@ -222,133 +217,5 @@
 	?>
 	</div>
 </div>
-
-<div id="dataModal" class="modal fade">  
-      <div class="modal-dialog">  
-           <div class="modal-content">  
-                <div class="modal-header">  
-                     <button type="button" class="close" data-dismiss="modal">&times;</button>  
-                     <h4 class="modal-title">Request Details</h4>  
-                </div>  
-                <div class="modal-body" id="employee_detail">  
-                </div>  
-                <div class="modal-footer">  
-                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
-                </div>  
-           </div>  
-      </div>  
- </div>  
- <div id="add_data_Modal" class="modal fade">  
-      <div class="modal-dialog">  
-           <div class="modal-content">  
-                <div class="modal-header">  
-                     <button type="button" class="close" data-dismiss="modal">&times;</button>  
-                     <h4 class="modal-title">PHP Ajax Update MySQL Data Through Bootstrap Modal</h4>  
-                </div>  
-                <div class="modal-body">  
-                     <form method="post" id="insert_form">  
-                          <label>Enter Username</label>  
-                          <input type="text" name="username" id="username" class="form-control" />  
-                          <br />  
-                          <label>Enter Nume</label>  
-                          <textarea name="nume" id="nume" class="form-control"></textarea>  
-                          <br />  
-						  <label>Enter Buy Date</label>  
-                          <textarea name="bdate" id="bdate" class="form-control"></textarea>  
-                          <br /> 
-                          <label>Select approve</label>  
-                          <select name="approve" id="approve" class="form-control">  
-                               <option value="yes">DA</option>  
-                               <option value="no">NU</option>  
-                          </select>  
-                          <br />  
-                          <label>Enter Arrival Date</label>  
-                          <textarea name="ardate" id="ardate" class="form-control"></textarea>  
-                          <br />
-                     </form>  
-                </div>  
-                <div class="modal-footer">  
-                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
-                </div>  
-           </div>  
-      </div>  
- </div>  
- <script>  
- $(document).ready(function(){  
-      $('#accept').click(function(){  
-           $('#insert').val("Insert");  
-           $('#insert_form')[0].reset();  
-      });  
-      $(document).on('click', '.edit_data', function(){  
-           var employee_id = $(this).attr("id");  
-           $.ajax({  
-                url:"fetch.php",  
-                method:"POST",  
-                data:{employee_id:employee_id},  
-                dataType:"json",  
-                success:function(data){  
-                     $('#name').val(data.name);  
-                     $('#address').val(data.address);  
-                     $('#gender').val(data.gender);  
-                     $('#designation').val(data.designation);  
-                     $('#age').val(data.age);  
-                     $('#employee_id').val(data.id);  
-                     $('#insert').val("Update");  
-                     $('#add_data_Modal').modal('show');  
-                }  
-           });  
-      });  
-      $('#insert_form').on("submit", function(event){  
-           event.preventDefault();  
-           if($('#name').val() == "")  
-           {  
-                alert("Name is required");  
-           }  
-           else if($('#address').val() == '')  
-           {  
-                alert("Address is required");  
-           }  
-           else if($('#designation').val() == '')  
-           {  
-                alert("Designation is required");  
-           }  
-           else if($('#age').val() == '')  
-           {  
-                alert("Age is required");  
-           }  
-           else  
-           {  
-                $.ajax({  
-                     url:"insert.php",  
-                     method:"POST",  
-                     data:$('#insert_form').serialize(),  
-                     beforeSend:function(){  
-                          $('#insert').val("Inserting");  
-                     },  
-                     success:function(data){  
-                          $('#insert_form')[0].reset();  
-                          $('#add_data_Modal').modal('hide');  
-                          $('#employee_table').html(data);  
-                     }  
-                });  
-           }  
-      });  
-      $(document).on('click', '.view_data', function(){  
-           var employee_id = $(this).attr("id");  
-           if(employee_id != '')  
-           {  
-                $.ajax({  
-                     url:"select.php",  
-                     method:"POST",  
-                     data:{employee_id:employee_id},  
-                     success:function(data){  
-                          $('#employee_detail').html(data);  
-                          $('#dataModal').modal('show');  
-                     }  
-                });  
-           }            
-      });  
- });  
- </script>
 </body>
 </html>
