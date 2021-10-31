@@ -1,36 +1,33 @@
 <?php
-  include "connect.php";
-  include "navbar.php";
-?>
-<!DOCTYPE html>
+    include "navbar.php";
+    ?>
+
 <html>
-<head>
-	<title>Game Request</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<style type="text/css">
-
-		.srch
-		{
-			padding-left: 850px;
-
-		}
-		.form-control
-		{
-			width: 300px;
-			height: 40px;
-			background-color: black;
-			color: white;
-		}
-		
-		body {
-			background-image: url("images/1111.jpg");
-			background-repeat: no-repeat;
-  	font-family: "Lato", sans-serif;
-  	transition: background-color .5s;
-}
-
-.sidenav {
+ <head>
+  <title>JOCURI</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>  
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <style>
+   body
+   {
+    margin:0;
+    padding:0;
+    background-color:#f1f1f1;
+   }
+   .box
+   {
+    width:1270px;
+    padding:20px;
+    background-color:#fff;
+    border:1px solid #ccc;
+    border-radius:5px;
+    margin-top:25px;
+   }
+   .sidenav {
   height: 100%;
   margin-top: 50px;
   width: 0;
@@ -54,7 +51,7 @@
 }
 
 .sidenav a:hover {
-  color: white;
+  color: #f1f1f1;
 }
 
 .sidenav .closebtn {
@@ -78,26 +75,10 @@
 {
 	margin-left: 20px;
 }
-.h:hover
-{
-	color:white;
-	width: 300px;
-	height: 50px;
-	background-color: #00544c;
-}
-.container
-{
-	height: 600px;
-	background-color: black;
-	opacity: .8;
-	color: white;
-}
-
-	</style>
-
-</head>
-<body>
-<!--_________________sidenav_______________-->
+  </style>
+ </head>
+ <body>
+     <!--_________________sidenav_______________-->
 	
 	<div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -105,20 +86,18 @@
   			<div style="color: white; margin-left: 60px; font-size: 20px;">
 
                 <?php
-                if(isset($_SESSION['login_user']))
-
-                { 	echo "<img class='img-circle profile_img' height=120 width=120 src='images/".$_SESSION['pic']."'>";
-                    echo "</br></br>";
-
-                    echo "Welcome ".$_SESSION['login_user']; 
-                }
+                    if(isset($_SESSION['login_user']))
+					{
+						echo "<img class='img-circle profile_img' height=120 width=120 src='images/".$_SESSION['pic']."'>";
+						echo "</br></br>";
+	
+						echo "Welcome ".$_SESSION['login_user']; 
+					} 
                 ?>
-            </div><br><br>
+            </div>
 
- 
-  <div class="h"> <a href="jocuri.php">Jocuri</a></div>
-  <div class="h"> <a href="request.php">Vanzare de Jocuri</a></div>
-  <div class="h"> <a href="issue_info.php">Informatii despre vanzare</a></div>
+	<div class="h"> <a href="profile.php">Profil</a></div>
+  	<div class="h"> <a href="request.php">Vanzare de Jocuri</a></div>
 </div>
 
 <div id="main">
@@ -126,96 +105,180 @@
   <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
 
 
-	<script>
-	function openNav() {
-	  document.getElementById("mySidenav").style.width = "300px";
-	  document.getElementById("main").style.marginLeft = "300px";
-	  document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-	}
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "300px";
+  document.getElementById("main").style.marginLeft = "300px";
+  document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+}
 
-	function closeNav() {
-	  document.getElementById("mySidenav").style.width = "0";
-	  document.getElementById("main").style.marginLeft= "0";
-	  document.body.style.backgroundColor = "white";
-	}
-	</script>
-	<br>
-
-<div class="container">
-	<div class="srch">
-		<br>
-		<form method="post" action="" name="form1">
-			<input type="text" name="username" class="form-control" placeholder="Username" required=""><br>
-			<input type="text" name="nume" class="form-control" placeholder="nume" required=""><br>
-			<button class="btn btn-default" name="submit" type="submit">Submit</button><br>
-		</form>
-	</div>
-
-	<h3 style="text-align: center;">Cereri de Vanzare</h3>
-
-	<?php
-	
-	if(isset($_SESSION['login_user']))
-	{
-		$sql= "SELECT client.username,jocuri.nume,approve,producator, issue, issue_game.return FROM client inner join issue_game ON client.username=issue_game.username inner join jocuri ON issue_game.nume=jocuri.nume WHERE issue_game.approve =''";
-		$res= mysqli_query($db,$sql);
-
-		if(mysqli_num_rows($res)==0)
-			{
-				echo "<h2><b>";
-				echo "There's no pending request.";
-				echo "</h2></b>";
-			}
-		else
-		{
-			echo "<table class='table table-bordered' >";
-			echo "<tr style='background-color: #6db6b9e6;'>";
-				//Table header
-				echo "<th>"; echo "Username";  echo "</th>";
-				echo "<th>"; echo "Game name";  echo "</th>";
-				echo "<th>"; echo "Approve Status";  echo "</th>";
-				echo "<th>"; echo "Data achizitiei";  echo "</th>";
-				echo "<th>"; echo "Data livrarii";  echo "</th>";
-				
-			echo "</tr>";	
-
-			while($row=mysqli_fetch_assoc($res))
-			{
-				echo "<tr>";
-				echo "<td>"; echo $row['username']; echo "</td>";
-				echo "<td>"; echo $row['nume']; echo "</td>";
-				echo "<td>"; echo $row['approve']; echo "</td>";
-				echo "<td>"; echo $row['issue']; echo "</td>";
-				echo "<td>"; echo $row['return']; echo "</td>";
-				
-				echo "</tr>";
-			}
-		echo "</table>";
-		}
-	}
-	else
-	{
-		?>
-		<br>
-			<h4 style="text-align: center;color: yellow;">Logheaza-te ca sa vezi request-urile!</h4>
-			
-		<?php
-	}
-
-	if(isset($_POST['submit']))
-	{
-		$_SESSION['nume']=$_POST['username'];
-		$_SESSION['nume']=$_POST['nume'];
-
-		?>
-			<script type="text/javascript">
-				window.location="approve.php"
-			</script>
-		<?php
-	}
-
-	?>
-	</div>
-</div>
-</body>
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+  document.body.style.backgroundColor = "white";
+}
+</script>
+  <div class="container box">
+   <h1 align="center">Lista de Vanzari</h1>
+   <br />
+   <div class="table-responsive">
+    <br />
+    <br /><br />
+    <table id="req_data" class="table table-bordered table-striped">
+     <thead>
+      <tr>
+       <th width="35%">Username</th>
+       <th width="35%">Nume</th>
+       <th width="35%">Approval</th>
+       <th width="35%">Data Acceptare</th>
+       <th width="35%">Data Expediere</th>
+       <th width="20%">Edit</th>
+       <th width="20%">Delete</th>
+      </tr>
+     </thead>
+    </table>
+    
+   </div>
+  </div>
+ </body>
 </html>
+
+<div id="gameModal" class="modal fade">
+ <div class="modal-dialog">
+  <form method="post" id="req_form" enctype="multipart/form-data">
+   <div class="modal-content">
+    <div class="modal-header">
+     <button type="button" class="close" data-dismiss="modal">&times;</button>
+     <h4 class="modal-title">Add Game</h4>
+    </div>
+    <div class="modal-body">
+	<label>Enter username</label>
+	<input type="text" name="username" id="username" class="form-control" />
+	<br />
+     <label>Enter Nume</label>
+     <input type="text" name="nume" id="nume" class="form-control" />
+     <br />
+     <label>Enter approve</label>
+     <input type="text" name="approve" id="approve" class="form-control" />
+     <br />
+     <label>Enter issue</label>
+     <input type="text" name="issue" id="issue" class="form-control" />
+     <br />
+     <label>Enter returnal</label>
+     <input type="text" name="returnal" id="returnal" class="form-control" />
+     <br />
+    </div>
+    <div class="modal-footer">
+     <input type="" name="user_id" id="user_id" />
+     <input type="hidden" name="operation" id="operation" />
+     <input type="submit" name="action" id="action" class="btn btn-success" value="Add" />
+     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+   </div>
+  </form>
+ </div>
+</div>
+
+<script type="text/javascript" language="javascript" >
+$(document).ready(function(){
+ $('#add_button').click(function(){
+  $('#req_form')[0].reset();
+  $('.modal-title').text("Add Game");
+  $('#action').val("Add");
+  $('#operation').val("Add");
+ });
+ 
+ var dataTable = $('#req_data').DataTable({
+  "processing":true,
+  "serverSide":true,
+  "order":[],
+  "ajax":{
+   url:"fetch1.php",
+   type:"POST"
+  },
+  "columnDefs":[
+   {
+    "targets":[0, 3, 4],
+    "orderable":false,
+   },
+  ],
+
+ });
+
+ $(document).on('submit', '#req_form', function(event){
+  event.preventDefault();
+  var username = $('#username').val();
+  var nume = $('#nume').val();
+  var approve = $('#approve').val();
+  var issue = $('#issue').val();
+  var returnal = $('#returnal').val();
+  if(nume != '')
+  {
+   $.ajax({
+    url:"insert1.php",
+    method:'POST',
+    data:new FormData(this),
+    contentType:false,
+    processData:false,
+    success:function(data)
+    {
+     alert(data);
+     $('#req_form')[0].reset();
+     $('#gameModal').modal('hide');
+     dataTable.ajax.reload();
+    }
+   });
+  }
+  else
+  {
+   alert("All Fields are Required");
+  }
+ });
+ 
+ $(document).on('click', '.update', function(){
+  var user_id = $(this).attr("id");
+  $.ajax({
+   url:"fetch_single1.php",
+   method:"POST",
+   data:{user_id:user_id},
+   dataType:"json",
+   success:function(data)
+   {
+    $('#gameModal').modal('show');
+    $('#username').val(data.username);
+    $('#nume').val(data.nume);
+    $('#approve').val(data.approve);
+    $('#issue').val(data.issue);
+    $('#returnal').val(data.returnal);
+    $('.modal-title').text("Edit Request");
+    $('#user_id').val(user_id);
+    $('#action').val("Edit");
+    $('#operation').val("Edit");
+   }
+  })
+ });
+ 
+ $(document).on('click', '.delete', function(){
+  var user_id = $(this).attr("id");
+  if(confirm("Are you sure you want to delete this?"))
+  {
+   $.ajax({
+    url:"delete1.php",
+    method:"POST",
+    data:{user_id:user_id},
+    success:function(data)
+    {
+     alert(data);
+     dataTable.ajax.reload();
+    }
+   });
+  }
+  else
+  {
+   return false; 
+  }
+ });
+ 
+ 
+});
+</script>

@@ -5,13 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Client Information</title>
+	<title>Jocuri</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<style type="text/css">
 		.srch
 		{
-			padding-left: 1010px;
+			padding-left: 1000px;
+
 		}
+		
 		body {
   font-family: "Lato", sans-serif;
   transition: background-color .5s;
@@ -66,10 +69,10 @@
 	margin-left: 20px;
 }
 	</style>
+
 </head>
 <body>
-
-<!--_________________sidenav_______________-->
+	<!--_________________sidenav_______________-->
 	
 	<div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -77,15 +80,19 @@
   			<div style="color: white; margin-left: 60px; font-size: 20px;">
 
                 <?php
+				if(isset($_SESSION['login_user']))
+				{
                     echo "<img class='img-circle profile_img' height=120 width=120 src='images/".$_SESSION['pic']."'>";
                     echo "</br></br>";
 
                     echo "Welcome ".$_SESSION['login_user']; 
+				}
                 ?>
             </div>
 
-			<div class="h"> <a href="profile.php">Profil</a></div>
-  			<div class="h"> <a href="request.php">Vanzare de Jocuri</a></div>
+	<div class="h"> <a href="profile.php">Profile</a></div>		
+	<div class="h"> <a href="jocuri.php">JOCURI</a></div>
+  	<div class="h"> <a href="request.php">Cerere Cumparare Joc</a></div>	
 </div>
 
 <div id="main">
@@ -106,52 +113,68 @@ function closeNav() {
   document.body.style.backgroundColor = "white";
 }
 </script>
-
-	<!--__________________________search bar________________________-->
+	<!--___________________search bar________________________-->
 
 	<div class="srch">
 		<form class="navbar-form" method="post" name="form1">
 			
-				<input class="form-control" type="text" name="search" placeholder="Client username.." required="">
+				<input class="form-control" type="text" name="search" placeholder="Cauta Jocuri" required="">
 				<button style="background-color: #6db6b9e6;" type="submit" name="submit" class="btn btn-default">
 					<span class="glyphicon glyphicon-search"></span>
 				</button>
 		</form>
 	</div>
 
-	<h2>Lista de Clienti</h2>
+	<!----------request game---------------->
+	
+	<!-- <div class="srch">
+		<form class="navbar-form" method="post" name="form1">
+			
+				<input class="form-control" type="text" name="nume" placeholder="Numele jocului" required="">
+				<button style="background-color: #6db6b9e6;" type="submit" name="request" class="btn btn-default">
+				Request
+				</button>
+		</form>
+	</div> -->
+
+	<h2>Lista de Jocuri</h2>
 	<?php
 
 		if(isset($_POST['submit']))
 		{
-			$q=mysqli_query($db,"SELECT first,last,username,email,contact FROM `client` where username like '%$_POST[search]%' ");
+			$q=mysqli_query($db,"SELECT * from jocuri where nume like '%$_POST[search]%' ");
 
 			if(mysqli_num_rows($q)==0)
 			{
-				echo "Scuze, nu am gasit niciun student. Cauta din nou!";
+				echo "Niciun joc gasit. Cauta din nou!";
 			}
 			else
 			{
 		echo "<table class='table table-bordered table-hover' >";
 			echo "<tr style='background-color: #6db6b9e6;'>";
 				//Table header
-				echo "<th>"; echo "First Name";	echo "</th>";
-				echo "<th>"; echo "Last Name";  echo "</th>";
-				echo "<th>"; echo "Username";  echo "</th>";
-				echo "<th>"; echo "Email";  echo "</th>";
-				echo "<th>"; echo "Contact";  echo "</th>";
-				
-			echo "</tr>";	
+			    echo "<th>"; echo "Nume";  echo "</th>";
+				echo "<th>"; echo "Pret";	echo "</th>";
+			    echo "<th>"; echo "Producator";  echo "</th>";
+			    echo "<th>"; echo "Varsta";  echo "</th>";
+			    echo "<th>"; echo "Platforma";  echo "</th>";
+				echo "<th>"; echo "Actiuni"; echo "</th>";
+						
+			    echo "</tr>";	
 
 			while($row=mysqli_fetch_assoc($q))
 			{
 				echo "<tr>";
-				echo "<td>"; echo $row['first']; echo "</td>";
-				echo "<td>"; echo $row['last']; echo "</td>";
-				echo "<td>"; echo $row['username']; echo "</td>";
-				echo "<td>"; echo $row['email']; echo "</td>";
-				echo "<td>"; echo $row['contact']; echo "</td>";
-
+                echo "<td>"; echo $row['nume']; echo "</td>";
+                echo "<td>"; echo $row['pret']; echo "</td>";
+                echo "<td>"; echo $row['producator']; echo "</td>";
+                echo "<td>"; echo $row['varsta']; echo "</td>";
+                echo "<td>"; echo $row['platforma']; echo "</td>";
+				?>
+				<td class="float-right">
+				<button class="btn btn-primary" type="submit" id="request" name="request">REQUEST</button>
+				</td>
+                <?php
 				echo "</tr>";
 			}
 		echo "</table>";
@@ -160,33 +183,44 @@ function closeNav() {
 			/*if button is not pressed.*/
 		else
 		{
-			$res=mysqli_query($db,"SELECT first,last,username,email,contact FROM `client`;");
+			$res=mysqli_query($db,"SELECT * FROM `jocuri` ORDER BY `jocuri`.`nume` ASC;");
 
 		echo "<table class='table table-bordered table-hover' >";
 			echo "<tr style='background-color: #6db6b9e6;'>";
 				//Table header
-				echo "<th>"; echo "First Name";	echo "</th>";
-				echo "<th>"; echo "Last Name";  echo "</th>";
-				echo "<th>"; echo "Username";  echo "</th>";
-				echo "<th>"; echo "Email";  echo "</th>";
-				echo "<th>"; echo "Contact";  echo "</th>";
-			echo "</tr>";	
+			    echo "<th>"; echo "Nume";  echo "</th>";
+				echo "<th>"; echo "Pret";	echo "</th>";
+			    echo "<th>"; echo "Producator";  echo "</th>";
+			    echo "<th>"; echo "Varsta";  echo "</th>";
+			    echo "<th>"; echo "Platforma";  echo "</th>";
+				echo "<th>"; echo "Actiuni"; echo "</th>";
+						
+			    echo "</tr>";
 
 			while($row=mysqli_fetch_assoc($res))
 			{
 				echo "<tr>";
-				
-				echo "<td>"; echo $row['first']; echo "</td>";
-				echo "<td>"; echo $row['last']; echo "</td>";
-				echo "<td>"; echo $row['username']; echo "</td>";
-				echo "<td>"; echo $row['email']; echo "</td>";
-				echo "<td>"; echo $row['contact']; echo "</td>";
-
+                echo "<td>"; echo $row['nume']; echo "</td>";
+                echo "<td>"; echo $row['pret']; echo "</td>";
+                echo "<td>"; echo $row['producator']; echo "</td>";
+                echo "<td>"; echo $row['varsta']; echo "</td>";
+                echo "<td>"; echo $row['platforma']; echo "</td>";
+				?>
+				<td class="float-right">
+				<button class="btn btn-primary" type="submit" name="request">REQUEST</button>
+				</td>
+                <?php
+                
 				echo "</tr>";
 			}
 		echo "</table>";
 		}
+		
+		if(isset($_POST['request'])){
+					mysqli_query($db, "INSERT INTO issue_game VALUES('$_SESSION[login_user]', '$row[nume]', '', '', '') ;");
+				}
 
 	?>
+</div>
 </body>
 </html>

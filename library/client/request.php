@@ -98,9 +98,9 @@
                 ?>
             </div><br><br>
 
- 
-  <div class="h"> <a href="jocuri.php">JOCURI</a></div>
-  <div class="h"> <a href="request.php">Cerere Cumparare Joc</a></div>
+	<div class="h"> <a href="profile.php">Profile</a></div>	
+  	<div class="h"> <a href="jocuri.php">JOCURI</a></div>
+  	<div class="h"> <a href="request.php">Cerere Cumparare Joc</a></div>
 
 </div>
 <div id="main">
@@ -152,7 +152,7 @@
 				echo "<td>"; echo $row['nume']; echo "</td>";
 				echo "<td>"; echo $row['approve']; echo "</td>";
 				echo "<td>"; echo $row['issue']; echo "</td>";
-				echo "<td>"; echo $row['return']; echo "</td>";
+				echo "<td>"; echo $row['returnal']; echo "</td>";
 				
 				echo "</tr>";
 			}
